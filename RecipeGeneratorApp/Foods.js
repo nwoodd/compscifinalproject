@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
 
-export default function Foods() {
+export default function Foods({ navigation }) {
   const [foods, setFoods] = useState ([])
 
   const moreFood = () => {
@@ -21,15 +20,17 @@ export default function Foods() {
     <View>
       <Text>Generate a recipe!</Text>
       <Button title = "Give me dinner ideas" onPress = {moreFood}/>
-      <FlatList>
+      <FlatList
         data={foods}
         keyExtractor={(item) => item.idMeal}
         renderItem={({item}) => (
-          <Text>
+          <Text
+            onPress={() => navigation.navigate('Recipe', { meal: item })}
+          >
             {item.strMeal}
           </Text>
         )}
-      </FlatList>
+      />
 
     </View>
   )
