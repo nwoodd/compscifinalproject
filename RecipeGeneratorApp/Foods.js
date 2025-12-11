@@ -10,13 +10,13 @@ export default function Foods({ navigation }) {
       .then((response) => response.json())
         .then((json) => {  
           console.log(json); 
-          const newFoods = json.meals;
-          setFoods((prev) => [...prev, ...newFoods]);   
+          const newMeal = json.meals[0];
+          setFoods([newMeal]);   
         })
         .catch((error) => {
           console.error(error);
         });
-  }
+  };
   return (
     <View>
       <Text style={styles.titleText}>Generate a recipe!</Text>
@@ -24,18 +24,15 @@ export default function Foods({ navigation }) {
       <Text style={styles.buttonText}>What should I make today?</Text>
       </Pressable>
 
-      <FlatList
-        data={foods}
-        keyExtractor={(item) => item.idMeal}
-        renderItem={({item}) => (
-          <Text
-            onPress={() => navigation.navigate('Recipe', { meal: item })}
+    
+        {foods.length > 0 && (
+          <Text style={styles.foodText}
+            onPress={() => navigation.navigate('Recipe', { meal: foods[0] })}
           >
-            {item.strMeal}
+            {foods[0].strMeal}
           </Text>
-        )}
-      />
-
+        )
+        }
     </View>
   )
   
@@ -60,6 +57,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 20,
     textAlign: 'center',
-  }
-
+  },
+  foodText: {
+      marginTop: 20,
+      fontSize: 20,
+      textAlign: 'center', 
+    }
 });
