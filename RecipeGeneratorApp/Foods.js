@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Button, Pressable } from 'react-native';
+
 
 export default function Foods({ navigation }) {
   const [foods, setFoods] = useState ([])
@@ -18,8 +19,11 @@ export default function Foods({ navigation }) {
   }
   return (
     <View>
-      <Text>Generate a recipe!</Text>
-      <Button title = "Give me dinner ideas" onPress = {moreFood}/>
+      <Text style={styles.titleText}>Generate a recipe!</Text>
+      <Pressable style={styles.button} onPress={moreFood}>
+      <Text style={styles.buttonText}>What should I make today?</Text>
+      </Pressable>
+
       <FlatList
         data={foods}
         keyExtractor={(item) => item.idMeal}
@@ -36,3 +40,26 @@ export default function Foods({ navigation }) {
   )
   
 }
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#f961ccff',  // change color here
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,  // makes text bigger
+    fontWeight: 'bold',
+  },
+  titleText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 20,
+    textAlign: 'center',
+  }
+
+});
